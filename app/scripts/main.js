@@ -56,7 +56,7 @@ function handleComplete (){
     };
 
     for (var i = rects.length - 1; i >= 0; i--) {
-        // (function(){ eslint no-loop-func: 2
+        (function(){ //eslint no-loop-func: 2
             var block = new createjs.Shape();
 
             var x = 36 + (rects[i].x * block_size.w);
@@ -73,14 +73,14 @@ function handleComplete (){
                 y: y
             };
 
-            block.addEventListener('click', function(e){
+            block.addEventListener('click', function(){
                 // console.log('x/y', x, y);
 
                 if(is_clicked){
                     stage.removeChild(circle);
                 }else{
-                    circle.x = e.target.position.x + 65;
-                    circle.y = e.target.position.y + 20;
+                    circle.x = x + 65;
+                    circle.y = y + 20;
                     stage.addChild(circle);
                 }
 
@@ -96,7 +96,7 @@ function handleComplete (){
 
             stage.addChild(block);
 
-        // })();
+        })();
     }
 
     // var block = new createjs.Shape();
