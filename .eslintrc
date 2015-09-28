@@ -1,5 +1,6 @@
 {
     "rules": {
-        "camelcase": [0]
+        "camelcase": 0,
+        "no-loop-func": 0
     }
 }
