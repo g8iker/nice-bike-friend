@@ -1,6 +1,6 @@
 'use strict';
 /*global createjs */
-/*eslint no-loop-func: 0*/
+/*eslint no-loop-func: false*/
 /*eslint-env es6*/
 var stage, loader, w, h;
 
@@ -56,7 +56,7 @@ function handleComplete (){
     };
 
     for (var i = rects.length - 1; i >= 0; i--) {
-        (function(){ /*eslint no-loop-func: 2*/
+        // (function(){ eslint no-loop-func: 2
             var block = new createjs.Shape();
 
             var x = 36 + (rects[i].x * block_size.w);
@@ -68,18 +68,19 @@ function handleComplete (){
             // var circle = new createjs.Shape();
             var circle = new createjs.Bitmap(circle_image);
 
-            // circle.graphics.beginBitmapFill(circle_image).drawRect(
-            //     x, y, 195, 195
-            // );
+            block.position = {
+                x: x,
+                y: y
+            };
 
-            block.addEventListener('click', function(){
+            block.addEventListener('click', function(e){
                 // console.log('x/y', x, y);
 
                 if(is_clicked){
                     stage.removeChild(circle);
                 }else{
-                    circle.x = x + 65;
-                    circle.y = y + 20;
+                    circle.x = e.target.position.x + 65;
+                    circle.y = e.target.position.y + 20;
                     stage.addChild(circle);
                 }
 
@@ -95,7 +96,7 @@ function handleComplete (){
 
             stage.addChild(block);
 
-        })();
+        // })();
     }
 
     // var block = new createjs.Shape();
