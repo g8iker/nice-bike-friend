@@ -1,64 +1,50 @@
 "use strict";
+
+var stage, loader, w, h;
+
+var rects = [];
+(function(){
+    for (var i = 0; i < 5; i++) {
+        for (var j = 0; j < 5; j++) {
+            rects.push({
+                x: i,
+                y: j,
+            });
+        };
+    };
+})();
+
 function init(){
-    var stage = new createjs.Stage("g8iker");
-    var stage_width = $(window).width();
-    stage.canvas.width = stage_width;
+    stage = new createjs.Stage("g8iker");
 
-    var background;
-    var circle;
+    stage.canvas.width = 1920;
+    stage.canvas.height = 1440;
 
-    var on_ready = function(){
-        stage.addChild(circle);
-        stage.addChild(background);
-        stage.update();
-    }
+    w = stage.canvas.width;
+    h = stage.canvas.height;
 
-    var resize_stage = function(){
+    var manifest = [
+        {src: "background.jpg", id: "background"},
+        {src: "circle.png", id: "circle"}
+    ];
 
-    }
+    loader = new createjs.LoadQueue(false);
+    loader.addEventListener("complete", handleComplete);
+    loader.loadManifest(manifest, true, "images/");
+}
 
-    $(window).on('resize', function(){
-        resize_stage();
-    });
 
-    var load_images = function(){
-        var ready_counter = 0;
+function handleComplete (){
+    var circle = new createjs.Bitmap(loader.getResult("circle"));
+    // var background = new createjs.Bitmap(loader.getResult("background"));
 
-        var background_image = new Image();
-        background_image.src = 'images/background.jpg';
+    var background = new createjs.Shape();
+    background.graphics.beginBitmapFill(loader.getResult("background")).drawRect(0, 0, w, h);
 
-        background_image.addEventListener('load', function(){
-            background = new createjs.Bitmap(background_image);
-            var resize_ratio = stage_width / background.image.width;
-            // var window_height = $(window).height();
-            // var window_width = stage_width;
+    stage.addChild(circle);
+    stage.addChild(background);
 
-            // var resize_ratio = window_height / background.image.height;
-            // debugger;
-
-            background.scaleX = resize_ratio;
-            background.scaleY = resize_ratio;
-
-            resize_stage();
-
-            stage.canvas.height = background.image.height * resize_ratio;
-            ready_counter++;
-        });
-
-        var circle_image = new Image();
-        circle_image.src = 'images/circle.png';
-
-        circle_image.addEventListener('load', function(){
-            circle = new createjs.Bitmap(circle_image);
-            ready_counter++;
-        });
-
-        var interval = setInterval(function(){
-            if(ready_counter === 2){
-                on_ready();
-                clearInterval(interval);
-            }
-        }, 100);
-
-    }();
+    var start_x = 0;
+    var start_y = 0;
+    stage.update();
 }
