@@ -1,0 +1,12 @@
+{
+  "name": "g8iker-nice-bike-friend",
+  "private": true,
+  "dependencies": {
+    "bootstrap-sass": "~3.3.1",
+    "modernizr": "~2.8.1"
+  },
+  "devDependencies": {
+    "chai": "~3.3.0",
+    "mocha": "~2.3.3"
+  }
+}
