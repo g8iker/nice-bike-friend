@@ -6,18 +6,82 @@ var stage, loader, w, h;
 
 var rects = [];
 (function(){
-    for (var i = 0; i < 5; i++) {
-        for (var j = 0; j < 5; j++) {
-            rects.push({
-                x: i,
-                y: j
+    for (var x = 0; x < 5; y++) {
+        rects[x] = [];
+        for (var y = 0; y < 5; y++) {
+            rects[x].push({
+                x: x,
+                y: y,
+                checked: false
             });
         }
     }
 })();
 
 
-var download_file = function(filename, imageData) {
+(function(){
+    var api_path = 'http://g8iker-events.dev/LayNxpNWR3/';
+    $.ajax({
+
+    });
+})();
+
+function check_lines(){
+    var lines = [
+        // verticle lines
+        [{x: 0, y: 0}, {x: 0, y: 1}, {x: 0, y: 2}, {x: 0, y: 3}, {x: 0, y: 4}],
+        [{x: 1, y: 0}, {x: 1, y: 1}, {x: 1, y: 2}, {x: 1, y: 3}, {x: 1, y: 4}],
+        [{x: 2, y: 0}, {x: 2, y: 1}, {x: 2, y: 2}, {x: 2, y: 3}, {x: 2, y: 4}],
+        [{x: 3, y: 0}, {x: 3, y: 1}, {x: 3, y: 2}, {x: 3, y: 3}, {x: 3, y: 4}],
+        [{x: 4, y: 0}, {x: 4, y: 1}, {x: 4, y: 2}, {x: 4, y: 3}, {x: 4, y: 4}],
+        // hozitional lines
+        [{x: 0, y: 0}, {x: 1, y: 0}, {x: 2, y: 0}, {x: 3, y: 0}, {x: 4, y: 0}],
+        [{x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1}, {x: 3, y: 1}, {x: 4, y: 1}],
+        [{x: 0, y: 2}, {x: 1, y: 2}, {x: 2, y: 2}, {x: 3, y: 2}, {x: 4, y: 2}],
+        [{x: 0, y: 3}, {x: 1, y: 3}, {x: 2, y: 3}, {x: 3, y: 3}, {x: 4, y: 3}],
+        [{x: 0, y: 4}, {x: 1, y: 4}, {x: 2, y: 4}, {x: 3, y: 4}, {x: 4, y: 4}],
+        // cross lines
+        [{x: 0, y: 0}, {x: 1, y: 1}, {x: 2, y: 2}, {x: 3, y: 3}, {x: 4, y: 4}],
+        [{x: 4, y: 0}, {x: 3, y: 1}, {x: 2, y: 2}, {x: 1, y: 3}, {x: 0, y: 4}]
+    ];
+
+    var line_types = [
+        'line_v',
+        'line_v',
+        'line_v',
+        'line_v',
+        'line_v',
+        'line_h',
+        'line_h',
+        'line_h',
+        'line_h',
+        'line_h',
+        'line_backslash',
+        'line_slash',
+    ];
+
+    for (var i = lines.length - 1; i >= 0; i--) {
+        var line = lines[i];
+        for(var l in line){
+            var x = line[l].x;
+            var y = line[l].y;
+        }
+    }
+
+    // for (var i = rects.length - 1; i >= 0; i--) {
+    //     if(typeof rects[i].checked === 'boolean'){
+    //         if(!rects[i].checked){
+    //             break;
+    //         }
+
+    //         for (var l = lines.length - 1; l >= 0; l--) {
+    //             lines[l]
+    //         };
+    //     }
+    // };
+}
+
+function download_file(filename, imageData) {
     var pom = document.createElement('a');
     pom.href = imageData;
     pom.download = filename;
@@ -56,7 +120,8 @@ function handleComplete (){
     };
 
     for (var i = rects.length - 1; i >= 0; i--) {
-        (function(){ //eslint no-loop-func: 2
+
+        (function(i){ //eslint no-loop-func: 2
             var block = new createjs.Shape();
 
             var x = 36 + (rects[i].x * block_size.w);
@@ -86,6 +151,10 @@ function handleComplete (){
 
                 stage.update();
                 is_clicked = !is_clicked;
+
+                rects[i].checked = is_clicked;
+
+                check_lines();
             });
 
             block.graphics.beginFill('#FFFFFF').drawRect(
@@ -96,7 +165,7 @@ function handleComplete (){
 
             stage.addChild(block);
 
-        })();
+        })(i);
     }
 
     // var block = new createjs.Shape();
