@@ -15,8 +15,15 @@
             // var div = $('div').html();
             // var index = parseInt(getRandomArbitrary(0, 21));
             // debugger;
+            // play all random
             // $('body').append('<iframe id="video-wrapper" width="560" height="315" src="https://www.youtube.com/embed/UBCqaAv0jYI?list=PLHVtMp_LI1HWw_d_QhFKpYOuYiq_gxP8i&autoplay=true&index=' + index + '" frameborder="0" allowfullscreen></iframe>');
-            $('body').append('<iframe id="video-wrapper" width="560" height="315" src="https://www.youtube.com/embed/dyKMijgm_RY?&autoplay=true" frameborder="0" allowfullscreen></iframe>')
+
+            // 你好馬英九
+            // $('body').append('<iframe id="video-wrapper" width="560" height="315" src="https://www.youtube.com/embed/dyKMijgm_RY?&autoplay=true" frameborder="0" allowfullscreen></iframe>')
+
+            // boy next door
+            $('body').append('<iframe id="video-wrapper" width="560" height="315" src="https://www.youtube.com/embed/_cyuktfkHEY?&autoplay=true" frameborder="0" allowfullscreen></iframe>')
+
             $('body').append('<div id="overlay"></div>');
 
             $('#overlay').on('click', function(){
