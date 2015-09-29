@@ -4,6 +4,42 @@
  @import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
  // endbower
 
+body{
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  text-align: center;
+}
+canvas{
+  max-width: 100%;
+}
+@media (min-width: 1200px) {
+  canvas{
+    max-width: 70%;
+    margin: 0 auto;
+    display: inline-block;
+  }
+}
+
+#video-wrapper{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-left: -280px;
+  margin-top: -135px;
+  z-index: 2000;
+}
+#overlay{
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+}
+
 // .browserupgrade {
 //   margin: 0.2em 0;
 //   background: #ccc;

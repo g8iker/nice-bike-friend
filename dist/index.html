@@ -3,10 +3,19 @@
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    text-align: center;
   }
   canvas{
     max-width: 100%;
   }
+  @media (min-width: 1200px) {
+    canvas{
+      max-width: 70%;
+      margin: 0 auto;
+      display: inline-block;
+    }
+  }
+
   #video-wrapper{
     position: fixed;
     top: 50%;
