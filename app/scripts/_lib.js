@@ -13,6 +13,7 @@ var GAME = {};
         }
 
         if(_counter === line_types_length ){
+            ga('send', 'event', 'billy', 'show billy', '看哲學');
             // alert('You got me mad now!');
             // var div = $('div').html();
             // var index = parseInt(getRandomArbitrary(0, 21));
