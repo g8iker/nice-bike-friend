@@ -1,4 +1,4 @@
-// generated on 2015-09-28 using generator-gulp-webapp 1.0.0
+// generated on 2015-09-29 using generator-gulp-webapp 1.0.3
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import browserSync from 'browser-sync';
@@ -23,18 +23,23 @@ gulp.task('styles', () => {
     .pipe(reload({stream: true}));
 });
 
-function lint(files) {
+function lint(files, options) {
   return () => {
     return gulp.src(files)
       .pipe(reload({stream: true, once: true}))
-      .pipe($.eslint())
+      .pipe($.eslint(options))
       .pipe($.eslint.format())
       .pipe($.if(!browserSync.active, $.eslint.failAfterError()));
   };
 }
+const testLintOptions = {
+  env: {
+    mocha: true
+  }
+};
 
 gulp.task('lint', lint('app/scripts/**/*.js'));
-gulp.task('lint:test', lint('test/spec/**/*.js'));
+gulp.task('lint:test', lint('test/spec/**/*.js', testLintOptions));
 
 gulp.task('html', ['styles'], () => {
   const assets = $.useref.assets({searchPath: ['.tmp', 'app', '.']});
@@ -110,6 +115,7 @@ gulp.task('serve', ['styles', 'fonts'], () => {
     '.tmp/fonts/**/*'
   ],['lint']);
 
+
   gulp.watch('app/styles/**/*.scss', ['styles']);
   gulp.watch('app/fonts/**/*', ['fonts']);
   gulp.watch('bower.json', ['wiredep', 'fonts']);
@@ -128,11 +134,13 @@ gulp.task('serve:dist', () => {
 gulp.task('serve:test', () => {
   browserSync({
     notify: false,
-    open: false,
     port: 9000,
     ui: false,
     server: {
-      baseDir: 'test'
+      baseDir: 'test',
+      routes: {
+        '/bower_components': 'bower_components'
+      }
     }
   });
 
@@ -154,12 +162,6 @@ gulp.task('wiredep', () => {
       ignorePath: /^(\.\.\/)*\.\./
     }))
     .pipe(gulp.dest('app'));
-});
-
-gulp.task('deploy', ['build'], () => {
-  return gulp.src('dist')
-    .pipe($.subtree())
-    .pipe($.clean());
 });
 
 gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], () => {
