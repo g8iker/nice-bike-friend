@@ -100,4 +100,14 @@ var GAME = {};
 
         stage.addChild(button);
     };
+
+    G.create_player_name_text = function(){
+         var text = new createjs.Text('' + player_name + ' 的', "44px Arial", "#000000");
+         text.x = 42;
+         text.y = -5;
+         // text.textBaseline = "alphabetic";
+
+        stage.addChild(text);
+    };
+
 })(GAME);

@@ -11,6 +11,7 @@
         GAME.create_fb_button();
         GAME.create_share_button();
         GAME.create_restart_button();
+        GAME.create_player_name_text();
 
         // var blocks = [];
 

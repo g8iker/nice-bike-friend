@@ -5,7 +5,7 @@
 
 var stage, loader, w, h;
 var drawed_lines = {};
-
+var player_name;
 var block_size = {
     w: 370,
     h: 225
@@ -47,7 +47,8 @@ var is_old_game = false;
     }
 
     if(is_new_game){
-
+        player_name = prompt('請輸入您的名字', '');
+        console.log(player_name);
         $.ajax({
             url: api_path + '?access_key=' + access_key,
             success: function(res){
@@ -62,8 +63,11 @@ var is_old_game = false;
             success: function(res){
                 GAME.game_id = res.id
                 // debugger;
-                if( res.data != null ){
-                    rects = JSON.parse(res.data);
+                var data = res.data;
+                if( data != null ){
+                    data = data.split('||||');
+                    rects = JSON.parse(data[1]);
+                    player_name = data[0];
                 }
 
                 is_old_game = true;
@@ -84,11 +88,12 @@ var is_old_game = false;
 
     GAME.update_game_data = function(){
         // console.log(GAME);
+        var data = player_name + "||||" + JSON.stringify(rects);
         $.ajax({
             url: api_path + GAME.game_id + '?access_key=' + access_key,
             method: "POST",
             dataType: "json",
-            data: {data: JSON.stringify(rects)},
+            data: {data: data},
             success: function(res){
                 // GAME.game_id = res.id
             }
