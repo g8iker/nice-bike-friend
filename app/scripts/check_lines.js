@@ -36,8 +36,11 @@
         // reset all lines
         (function(){
             for (var d in drawed_lines) {
-                stage.removeChild(drawed_lines[d]);
+                var l = drawed_lines[d];
+                stage.removeChild(l);
+                console.log('removed', l);
             }
+            stage.update();
             drawed_lines = {};
         })();
 

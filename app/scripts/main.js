@@ -12,18 +12,24 @@ var block_size = {
 };
 // default rects for position
 var rects = [];
-(function(){
-    for (var x = 0; x < 5; x++) {
-        rects[x] = [];
-        for (var y = 0; y < 5; y++) {
-            rects[x].push({
-                // x: x,
-                // y: y,
-                checked: false
-            });
+(function(G){
+
+    G.init_rects = function(){
+        for (var x = 0; x < 5; x++) {
+            rects[x] = [];
+            for (var y = 0; y < 5; y++) {
+                rects[x].push({
+                    // x: x,
+                    // y: y,
+                    checked: false
+                });
+            }
         }
     }
-})();
+
+    G.init_rects();
+
+})(GAME || {});
 
 // getting game data
 (function(GAME){

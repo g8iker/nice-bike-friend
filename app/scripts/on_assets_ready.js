@@ -6,22 +6,9 @@
         background.graphics.beginBitmapFill(loader.getResult('background')).drawRect(0, 0, w, h);
         stage.addChild(background);
 
-        var download = new createjs.Shape();
-        download.addEventListener('click', function(){
-            // var file_name = 'G8好車友_' + new Date().getTime() + '.png';
-            // download_file(file_name, stage.toDataURL('image/png'));
-            // var url = 'https://www.facebook.com/sharer/sharer.php?&u=' + encodeURIComponent(window.location.href);
-            window.open('http://www.facebook.com/share.php?u='.concat(encodeURIComponent(window.location.href)));
-            // window.open(url);
-        });
-
-        download.graphics.beginFill('#FFFFFF').drawRect(
-            1672, 96, 216, 150
-        );
-
-        download.alpha = 0.1;
-
-        stage.addChild(download);
+        GAME.create_fb_button();
+        GAME.create_share_button();
+        GAME.create_restart_button();
 
         // var blocks = [];
 
