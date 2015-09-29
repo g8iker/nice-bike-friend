@@ -2,6 +2,8 @@
 /*global createjs */
 /*eslint no-loop-func: false*/
 /*eslint-env es6*/
+
+var GAME = {};
 var stage, loader, w, h;
 
 var rects = [];
@@ -18,12 +20,57 @@ var rects = [];
     }
 })();
 
-(function(){
-    var api_path = 'http://g8iker-events.dev/LayNxpNWR3/';
-    $.ajax({
+(function(GAME){
+    var api_path = 'http://events.g8iker.com/LayNxpNWR3/';
+    var access_key = '2fd6c80d16278b094d4169afedc9aa7ad45b890e353cac2db323b553a2e8c1820e404da5fb24e050cfdb87fc61d61673683413dff735e5fbec4f2fedd37ac018';
 
-    });
-})();
+    GAME.game_id = window.location.hash.substr(1);
+    console.log(GAME.game_id);
+
+    var is_new_game = false;
+    if( GAME.game_id.length === 0){
+        is_new_game = true;
+    }
+
+    if(is_new_game){
+
+        $.ajax({
+            url: api_path + '?access_key=' + access_key,
+            success: function(res){
+                GAME.game_id = res.id
+                window.location.href = window.location.href + '#' + GAME.game_id;
+                init();
+            }
+        });
+    }else{
+        $.ajax({
+            url: api_path + GAME.game_id + '?access_key=' + access_key,
+            success: function(res){
+                GAME.game_id = res.id
+                // debugger;
+                if( res.data != null ){
+                    rects = JSON.parse(res.data);
+                }
+
+                init();
+            },
+        });
+    }
+
+    GAME.update_game_data = function(){
+        // console.log(GAME);
+        $.ajax({
+            url: api_path + GAME.game_id + '?access_key=' + access_key,
+            method: "POST",
+            dataType: "json",
+            data: {data: JSON.stringify(rects)},
+            success: function(res){
+                // GAME.game_id = res.id
+            }
+        });
+    }
+})(GAME);
+
 
 function check_lines(){
     var lines = [
@@ -129,33 +176,34 @@ function handleComplete (){
                 var x_axis = 36 + (x * block_size.w);
                 var y_axis = 245 + (y * block_size.h);
 
-                var is_clicked = false;
+                // var is_clicked = false;
 
                 var circle_image = loader.getResult('circle');
                 // var circle = new createjs.Shape();
                 var circle = new createjs.Bitmap(circle_image);
 
-                // block.position = {
-                //     x: x,
-                //     y: y
-                // };
+                // setup circle position
+                circle.x = x_axis + 65;
+                circle.y = y_axis + 20;
+
+                if(rects[x][y].checked){
+                    stage.addChild(circle);
+                }
 
                 block.addEventListener('click', function(){
                     console.log('x/y', x, y);
 
-                    if(is_clicked){
+                    if(rects[x][y].checked){
                         stage.removeChild(circle);
                     }else{
-                        circle.x = x_axis + 65;
-                        circle.y = y_axis + 20;
                         stage.addChild(circle);
                     }
 
                     stage.update();
-                    is_clicked = !is_clicked;
+                    // is_clicked = !is_clicked;
 
-                    // rects[x][y].checked = is_clicked;
-
+                    rects[x][y].checked = !rects[x][y].checked;
+                    GAME.update_game_data();
                     check_lines();
                 });
 
@@ -197,5 +245,3 @@ function init(){
     loader.addEventListener('complete', handleComplete);
     loader.loadManifest(manifest, true, 'images/');
 }
-
-init();
