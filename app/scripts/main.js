@@ -147,8 +147,11 @@ function handleComplete (){
 
     var download = new createjs.Shape();
     download.addEventListener('click', function(){
-        var file_name = 'G8好車友_' + new Date().getTime() + '.png';
-        download_file(file_name, stage.toDataURL('image/png'));
+        // var file_name = 'G8好車友_' + new Date().getTime() + '.png';
+        // download_file(file_name, stage.toDataURL('image/png'));
+        // var url = 'https://www.facebook.com/sharer/sharer.php?&u=' + encodeURIComponent(window.location.href);
+        window.open('http://www.facebook.com/share.php?u='.concat(encodeURIComponent(window.location.href)));
+        // window.open(url);
     });
 
     download.graphics.beginFill('#FFFFFF').drawRect(
