@@ -1,5 +1,7 @@
 (function(GAME){
     GAME.handleComplete = function(){
+        // remove loading icon
+        $('.sk-fading-circle').remove();
         // var circle = new createjs.Bitmap(loader.getResult("circle"));
         // var background = new createjs.Bitmap(loader.getResult("background"));
         var background = new createjs.Shape();
