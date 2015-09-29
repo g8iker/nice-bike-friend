@@ -76,6 +76,9 @@ var is_old_game = false;
                     }
                 });
             },
+            error: function(){
+                window.location.href = window.location.origin;
+            }
         });
     }
 
