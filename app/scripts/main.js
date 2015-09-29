@@ -6,18 +6,17 @@ var stage, loader, w, h;
 
 var rects = [];
 (function(){
-    for (var x = 0; x < 5; y++) {
+    for (var x = 0; x < 5; x++) {
         rects[x] = [];
         for (var y = 0; y < 5; y++) {
             rects[x].push({
-                x: x,
-                y: y,
+                // x: x,
+                // y: y,
                 checked: false
             });
         }
     }
 })();
-
 
 (function(){
     var api_path = 'http://g8iker-events.dev/LayNxpNWR3/';
@@ -119,53 +118,57 @@ function handleComplete (){
         h: 225
     };
 
-    for (var i = rects.length - 1; i >= 0; i--) {
+    for (var x = 0; x < rects.length; x++) {
+        for (var y = 0; y < rects[x].length; y++) {
+            (function(x, y){ //eslint no-loop-func: 2
+                var block = new createjs.Shape();
 
-        (function(i){ //eslint no-loop-func: 2
-            var block = new createjs.Shape();
+                // var x = 36 + (rects[i].x * block_size.w);
+                // var y = 245 + (rects[i].y * block_size.h);
 
-            var x = 36 + (rects[i].x * block_size.w);
-            var y = 245 + (rects[i].y * block_size.h);
+                var x_axis = 36 + (x * block_size.w);
+                var y_axis = 245 + (y * block_size.h);
 
-            var is_clicked = false;
+                var is_clicked = false;
 
-            var circle_image = loader.getResult('circle');
-            // var circle = new createjs.Shape();
-            var circle = new createjs.Bitmap(circle_image);
+                var circle_image = loader.getResult('circle');
+                // var circle = new createjs.Shape();
+                var circle = new createjs.Bitmap(circle_image);
 
-            block.position = {
-                x: x,
-                y: y
-            };
+                // block.position = {
+                //     x: x,
+                //     y: y
+                // };
 
-            block.addEventListener('click', function(){
-                // console.log('x/y', x, y);
+                block.addEventListener('click', function(){
+                    console.log('x/y', x, y);
 
-                if(is_clicked){
-                    stage.removeChild(circle);
-                }else{
-                    circle.x = x + 65;
-                    circle.y = y + 20;
-                    stage.addChild(circle);
-                }
+                    if(is_clicked){
+                        stage.removeChild(circle);
+                    }else{
+                        circle.x = x_axis + 65;
+                        circle.y = y_axis + 20;
+                        stage.addChild(circle);
+                    }
 
-                stage.update();
-                is_clicked = !is_clicked;
+                    stage.update();
+                    is_clicked = !is_clicked;
 
-                rects[i].checked = is_clicked;
+                    // rects[x][y].checked = is_clicked;
 
-                check_lines();
-            });
+                    check_lines();
+                });
 
-            block.graphics.beginFill('#FFFFFF').drawRect(
-                x, y, block_size.w, block_size.h
-            );
+                block.graphics.beginFill('#FFFFFF').drawRect(
+                    x_axis, y_axis, block_size.w, block_size.h
+                );
 
-            block.alpha = 0.1;
+                block.alpha = 0.1;
 
-            stage.addChild(block);
+                stage.addChild(block);
 
-        })(i);
+            })(x, y);
+        }
     }
 
     // var block = new createjs.Shape();
