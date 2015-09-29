@@ -1,3 +1,4 @@
+var GAME = {};
 (function(G){
     // debugger;
 
