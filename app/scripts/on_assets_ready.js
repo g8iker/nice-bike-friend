@@ -54,6 +54,7 @@
                         rects[x][y].checked = !rects[x][y].checked;
                         GAME.update_game_data();
                         GAME.check_lines();
+                        ga('send', 'event', 'clicks', 'click circle', '點圈圈');
                     });
 
                     block.graphics.beginFill('#FFFFFF').drawRect(

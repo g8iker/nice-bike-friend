@@ -42,6 +42,7 @@
             // var file_name = 'G8好車友_' + new Date().getTime() + '.png';
             // download_file(file_name, stage.toDataURL('image/png'));
             // var url = 'https://www.facebook.com/sharer/sharer.php?&u=' + encodeURIComponent(window.location.href);
+            ga('send', 'event', 'clicks', 'FB share', 'FB分享');
             window.open('http://www.facebook.com/share.php?u='.concat(encodeURIComponent(window.location.href)));
             // window.open(url);
         });
@@ -61,6 +62,7 @@
             // var a = rects;
             // debugger;
             // location.reload();
+            ga('send', 'event', 'clicks', 'click restart', '重新開始遊戲');
             window.location.href = window.location.origin;
         });
         button.graphics.beginFill('#FFFFFF').drawRect(
@@ -74,6 +76,7 @@
     G.create_fb_button = function(){
         var button = new createjs.Shape();
         button.addEventListener('click', function(){
+            ga('send', 'event', 'clicks', 'link to FB', '連到FB');
             window.open('https://www.facebook.com/G8ikercom?fref=ts');
         });
 
