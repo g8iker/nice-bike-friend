@@ -31,6 +31,8 @@ var rects = [];
 
 })(GAME || {});
 
+var is_old_game = false;
+
 // getting game data
 (function(GAME){
     var api_path = 'http://events.g8iker.com/LayNxpNWR3/';
@@ -64,10 +66,14 @@ var rects = [];
                     rects = JSON.parse(res.data);
                 }
 
+                is_old_game = true;
+
                 init();
 
                 $('body').on('click', function(){
-                    window.location.href = window.location.origin;
+                    if(confirm('要重新開始遊戲嗎?') ){
+                        window.location.href = window.location.origin;
+                    }
                 });
             },
         });

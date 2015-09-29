@@ -40,6 +40,9 @@
                     }
 
                     block.addEventListener('click', function(){
+                        if(is_old_game){
+                            return;
+                        }
                         console.log('x/y', x, y);
 
                         if(rects[x][y].checked){
