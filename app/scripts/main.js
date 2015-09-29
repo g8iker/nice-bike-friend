@@ -5,7 +5,13 @@
 
 var GAME = {};
 var stage, loader, w, h;
+var drawed_lines = {};
 
+var block_size = {
+    w: 370,
+    h: 225
+};
+// default rects for position
 var rects = [];
 (function(){
     for (var x = 0; x < 5; x++) {
@@ -20,12 +26,14 @@ var rects = [];
     }
 })();
 
+
+// getting game data
 (function(GAME){
     var api_path = 'http://events.g8iker.com/LayNxpNWR3/';
     var access_key = '2fd6c80d16278b094d4169afedc9aa7ad45b890e353cac2db323b553a2e8c1820e404da5fb24e050cfdb87fc61d61673683413dff735e5fbec4f2fedd37ac018';
 
     GAME.game_id = window.location.hash.substr(1);
-    console.log(GAME.game_id);
+    // console.log(GAME.game_id);
 
     var is_new_game = false;
     if( GAME.game_id.length === 0){
@@ -106,12 +114,66 @@ function check_lines(){
         'line_slash',
     ];
 
+    for (var d in drawed_lines) {
+        stage.removeChild(drawed_lines[d]);
+    }
+
     for (var i = lines.length - 1; i >= 0; i--) {
         var line = lines[i];
+        var uncheck_counter = 0;
+        var x, y;
         for(var l in line){
-            var x = line[l].x;
-            var y = line[l].y;
+            x = line[l].x;
+            y = line[l].y;
+            if(!rects[x][y].checked){
+                uncheck_counter++;
+            }
         }
+
+        if(uncheck_counter === 0){
+            var line_type = line_types[i];
+            var start = {
+                x: lines[i][0].x,
+                y: lines[i][0].y,
+            }
+
+            // var end = {
+            //     x: lines[i][lines[i].length - 1].x,
+            //     y: lines[i][lines[i].length - 1].y,
+            // }
+
+            var drawing_line = new createjs.Bitmap(loader.getResult(line_type));
+            switch(line_type){
+                case 'line_v':
+                    drawing_line.x = (start.x * block_size.w) + (block_size.w / 2) - 40;
+                    // drawing_line.y = (start.y * block_size.h) + (block_size.h / 2);
+                    drawing_line.y = 250;
+                    break;
+                case 'line_h':
+                        drawing_line.x = (start.x * block_size.w) + 40;
+                        drawing_line.y = (start.y * block_size.h) + (block_size.h / 2) + 180;
+                        // drawing_line.y = 250;
+                    break;
+                case 'line_slash':
+                case 'line_backslash':
+                        // drawing_line.x = (start.x * block_size.w) + 40;
+                        // drawing_line.y = (start.y * block_size.h) + 0;
+                        drawing_line.x = 50;
+                        drawing_line.y = 270;
+                        // drawing_line.y = 250;
+                    break;
+            }
+
+            drawed_lines[i] = drawing_line;
+
+            stage.addChild(drawing_line);
+            stage.update();
+        }else{
+            // stage.removeChild(drawed_lines[i]);
+        }
+
+
+
     }
 
     // for (var i = rects.length - 1; i >= 0; i--) {
@@ -127,20 +189,19 @@ function check_lines(){
     // };
 }
 
-function download_file(filename, imageData) {
-    var pom = document.createElement('a');
-    pom.href = imageData;
-    pom.download = filename;
-    document.body.appendChild(pom);
-    pom.click();
-    document.body.removeChild(pom);
-};
+// function download_file(filename, imageData) {
+//     var pom = document.createElement('a');
+//     pom.href = imageData;
+//     pom.download = filename;
+//     document.body.appendChild(pom);
+//     pom.click();
+//     document.body.removeChild(pom);
+// };
 
 
 function handleComplete (){
     // var circle = new createjs.Bitmap(loader.getResult("circle"));
     // var background = new createjs.Bitmap(loader.getResult("background"));
-
     var background = new createjs.Shape();
     background.graphics.beginBitmapFill(loader.getResult('background')).drawRect(0, 0, w, h);
     stage.addChild(background);
@@ -163,10 +224,6 @@ function handleComplete (){
     stage.addChild(download);
 
     // var blocks = [];
-    var block_size = {
-        w: 370,
-        h: 225
-    };
 
     for (var x = 0; x < rects.length; x++) {
         for (var y = 0; y < rects[x].length; y++) {
@@ -228,6 +285,9 @@ function handleComplete (){
     // stage.addChild(block);
 
     stage.update();
+
+    // init drawed lines
+    check_lines();
 }
 
 function init(){
@@ -241,7 +301,11 @@ function init(){
 
     var manifest = [
         {src: 'background.jpg', id: 'background'},
-        {src: 'circle.png', id: 'circle'}
+        {src: 'circle.png', id: 'circle'},
+        {src: 'line_v.png', id: 'line_v'},
+        {src: 'line_h.png', id: 'line_h'},
+        {src: 'line_backslash.png', id: 'line_backslash'},
+        {src: 'line_slash.png', id: 'line_slash'}
     ];
 
     loader = new createjs.LoadQueue(false);
