@@ -38,7 +38,7 @@
             for (var d in drawed_lines) {
                 var l = drawed_lines[d];
                 stage.removeChild(l);
-                console.log('removed', l);
+                // console.log('removed', l);
             }
             stage.update();
             drawed_lines = {};
