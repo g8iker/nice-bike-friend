@@ -1,3 +1,4 @@
+'use strict';
 (function(GAME){
     GAME.handleComplete = function(){
         // remove loading icon
@@ -17,14 +18,14 @@
 
         for (var x = 0; x < rects.length; x++) {
             for (var y = 0; y < rects[x].length; y++) {
-                (function(x, y){ //eslint no-loop-func: 2
+                (function(_x, _y){ //eslint no-loop-func: 2
                     var block = new createjs.Shape();
 
                     // var x = 36 + (rects[i].x * block_size.w);
                     // var y = 245 + (rects[i].y * block_size.h);
 
-                    var x_axis = 36 + (x * block_size.w);
-                    var y_axis = 245 + (y * block_size.h);
+                    var x_axis = 36 + (_x * block_size.w);
+                    var y_axis = 245 + (_y * block_size.h);
 
                     // var is_clicked = false;
 
@@ -44,7 +45,7 @@
                         if(is_old_game){
                             return;
                         }
-                        console.log('x/y', x, y);
+                        console.log('x/y', _x, _y);
 
                         if(rects[x][y].checked){
                             stage.removeChild(circle);
@@ -82,5 +83,5 @@
 
         // init drawed lines
         GAME.check_lines();
-    }
+    };
 })(GAME);

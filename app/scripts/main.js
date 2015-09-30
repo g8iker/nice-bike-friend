@@ -1,5 +1,4 @@
 'use strict';
-/*global createjs */
 /*eslint no-loop-func: false*/
 /*eslint-env es6*/
 

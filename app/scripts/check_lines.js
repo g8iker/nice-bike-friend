@@ -1,3 +1,4 @@
+'use strict';
 (function(GAME){
     var lines = [
         // verticle lines

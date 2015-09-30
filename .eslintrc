@@ -2,5 +2,19 @@
     "rules": {
         "camelcase": 0,
         "no-loop-func": 0
+    },
+    "globals": {
+        "GAME": true,
+        "stage": true,
+        "block_size": true,
+        "rects": true,
+        "createjs": true,
+        "ga": true,
+        "$": true,
+        "loader": true,
+        "is_old_game": true,
+        "w": true,
+        "h": true,
+        "var2": false
     }
 }
