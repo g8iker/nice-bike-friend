@@ -80,7 +80,8 @@
                         GAME.update_game_data();
                         GAME.check_lines();
                         // ga('send', 'event', 'clicks', 'click circle', '點圈圈');
-                        ga('send', 'event', 'clicks', '點圈圈', CIRCLES[_x][_y]);
+                        // ga('send', 'event', 'clicks', '點圈圈', CIRCLES[_x][_y]);
+                        ga('send', 'event', 'clicks', CIRCLES[_x][_y], '點圈圈');
                     });
 
                     block.graphics.beginFill('#FFFFFF').drawRect(
