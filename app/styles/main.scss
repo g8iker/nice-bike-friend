@@ -9,12 +9,14 @@ body{
   padding: 0;
   overflow-x: hidden;
   text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
   min-height: 100vh;
 }
+
 canvas{
+  margin: 60px auto;
   max-width: 90%;
 }
 
@@ -22,7 +24,6 @@ canvas{
 @media (min-width: 1200px) {
   canvas{
     max-width: 70%;
-    margin: 0 auto;
     display: inline-block;
   }
 }
