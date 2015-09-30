@@ -30,15 +30,15 @@
         'line_h',
         'line_h',
         'line_backslash',
-        'line_slash',
+        'line_slash'
     ];
 
     GAME.check_lines = function(){
         // reset all lines
         (function(){
             for (var d in drawed_lines) {
-                var l = drawed_lines[d];
-                stage.removeChild(l);
+                var line_will_be_remove = drawed_lines[d];
+                stage.removeChild(line_will_be_remove);
                 // console.log('removed', l);
             }
             stage.update();
@@ -62,8 +62,8 @@
                 var line_type = line_types[i];
                 var start = {
                     x: lines[i][0].x,
-                    y: lines[i][0].y,
-                }
+                    y: lines[i][0].y
+                };
 
                 // var end = {
                 //     x: lines[i][lines[i].length - 1].x,
@@ -102,5 +102,5 @@
         }
         // you got me mad now!
         GAME.check_billy(line_types.length);
-    }
+    };
 })(GAME);

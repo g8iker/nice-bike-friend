@@ -1,19 +1,27 @@
 'use strict';
 /*eslint no-loop-func: false*/
+/*eslint no-alert: 0*/
 /*eslint-env es6*/
 
+
+/*eslint-disable no-unused-vars*/
 var stage,
     loader,
-    w = 0,
-    h = 0;
+    w = 1920,
+    h = 1440;
 var drawed_lines = {};
-var player_name;
+var is_old_game = false;
 var block_size = {
     w: 370,
     h: 225
 };
+/*eslint-enable no-unused-vars*/
+
+
+var player_name;
 // default rects for position
 var rects = [];
+
 (function(G){
 
     G.init_rects = function(){
@@ -27,16 +35,35 @@ var rects = [];
                 });
             }
         }
-    }
+    };
 
     G.init_rects();
 
-})(GAME || {});
+    G.init = function(){
+        stage = new createjs.Stage('g8iker');
 
-var is_old_game = false;
+        stage.canvas.width = w;
+        stage.canvas.height = h;
+
+        var manifest = [
+            {src: 'background.jpg', id: 'background'},
+            {src: 'circle.png', id: 'circle'},
+            {src: 'line_v.png', id: 'line_v'},
+            {src: 'line_h.png', id: 'line_h'},
+            {src: 'line_backslash.png', id: 'line_backslash'},
+            {src: 'line_slash.png', id: 'line_slash'}
+        ];
+
+        loader = new createjs.LoadQueue(false);
+        loader.addEventListener('complete', GAME.handleComplete);
+        loader.loadManifest(manifest, true, 'images/');
+    };
+
+})(GAME || {});
 
 // getting game data
 (function(GAME){
+
     var api_path = 'http://events.g8iker.com/LayNxpNWR3/';
     var access_key = '2fd6c80d16278b094d4169afedc9aa7ad45b890e353cac2db323b553a2e8c1820e404da5fb24e050cfdb87fc61d61673683413dff735e5fbec4f2fedd37ac018';
 
@@ -58,16 +85,16 @@ var is_old_game = false;
         $.ajax({
             url: api_path + '?access_key=' + access_key,
             success: function(res){
-                GAME.game_id = res.id
+                GAME.game_id = res.id;
                 window.location.href = window.location.href + '#' + GAME.game_id;
-                init();
+                GAME.init();
             }
         });
     }else{
         $.ajax({
             url: api_path + GAME.game_id + '?access_key=' + access_key,
             success: function(res){
-                GAME.game_id = res.id
+                GAME.game_id = res.id;
                 // debugger;
                 var data = res.data;
                 if( data != null ){
@@ -78,7 +105,7 @@ var is_old_game = false;
 
                 is_old_game = true;
 
-                init();
+                GAME.init();
 
                 $('body').on('click', function(){
                     if(confirm('要重新開始遊戲嗎?') ){
@@ -100,7 +127,7 @@ var is_old_game = false;
             method: 'POST',
             dataType: 'json',
             data: {data: data},
-            success: function(res){
+            success: function(){
                 // GAME.game_id = res.id
             }
         });
@@ -116,26 +143,3 @@ var is_old_game = false;
 //     document.body.removeChild(pom);
 // };
 
-
-function init(){
-    stage = new createjs.Stage('g8iker');
-
-    stage.canvas.width = 1920;
-    stage.canvas.height = 1440;
-
-    w = stage.canvas.width;
-    h = stage.canvas.height;
-
-    var manifest = [
-        {src: 'background.jpg', id: 'background'},
-        {src: 'circle.png', id: 'circle'},
-        {src: 'line_v.png', id: 'line_v'},
-        {src: 'line_h.png', id: 'line_h'},
-        {src: 'line_backslash.png', id: 'line_backslash'},
-        {src: 'line_slash.png', id: 'line_slash'}
-    ];
-
-    loader = new createjs.LoadQueue(false);
-    loader.addEventListener('complete', GAME.handleComplete);
-    loader.loadManifest(manifest, true, 'images/');
-}

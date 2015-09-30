@@ -9,6 +9,8 @@
         "block_size": true,
         "rects": true,
         "createjs": true,
+        "drawed_lines",
+        "player_name",
         "ga": true,
         "$": true,
         "loader": true,

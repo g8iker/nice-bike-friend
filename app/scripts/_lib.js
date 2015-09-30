@@ -1,17 +1,20 @@
+/*eslint no-underscore-dangle: 0*/
 'use strict';
 var GAME = {};
 (function(G){
     // debugger;
 
-    function getRandomArbitrary(min, max) {
-        return Math.random() * (max - min) + min;
-    }
+    // function getRandomArbitrary(min, max) {
+    //     return Math.random() * (max - min) + min;
+    // }
 
     G.check_billy = function(line_types_length){
         var _counter = 0;
+        /*eslint-disable no-unused-vars*/
         for(var d in drawed_lines){
             _counter++;
         }
+        /*eslint-disable no-unused-vars*/
 
         if(_counter === line_types_length ){
             ga('send', 'event', 'billy', 'show billy', '看哲學');
@@ -26,18 +29,18 @@ var GAME = {};
             // $('body').append('<iframe id="video-wrapper" width="560" height="315" src="https://www.youtube.com/embed/dyKMijgm_RY?&autoplay=true" frameborder="0" allowfullscreen></iframe>')
 
             // boy next door
-            $('body').append('<iframe id="video-wrapper" width="560" height="315" src="https://www.youtube.com/embed/_cyuktfkHEY?&autoplay=true" frameborder="0" allowfullscreen></iframe>')
+            $('body').append('<iframe id="video-wrapper" width="560" height="315" src="https://www.youtube.com/embed/_cyuktfkHEY?&autoplay=true" frameborder="0" allowfullscreen></iframe>');
 
             $('body').append('<div id="overlay"></div>');
 
             $('#overlay').on('click', function(){
-                $("#overlay").remove();
+                $('#overlay').remove();
                 $('#video-wrapper').remove();
             });
         }
         // console.log('line_types_length', line_types_length);
         // console.log(_counter);
-    }
+    };
 
     G.create_share_button = function(){
         var button = new createjs.Shape();
@@ -103,7 +106,7 @@ var GAME = {};
     };
 
     G.create_player_name_text = function(){
-         var text = new createjs.Text('' + player_name + ' 的', "44px Arial", "#000000");
+         var text = new createjs.Text('' + player_name + ' 的', 'bold 44px Arial', '#000000');
          text.x = 42;
          text.y = -5;
          // text.textBaseline = "alphabetic";
