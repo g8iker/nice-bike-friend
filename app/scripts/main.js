@@ -2,7 +2,10 @@
 /*eslint no-loop-func: false*/
 /*eslint-env es6*/
 
-var stage, loader, w, h;
+var stage,
+    loader,
+    w = 0,
+    h = 0;
 var drawed_lines = {};
 var player_name;
 var block_size = {
@@ -47,6 +50,10 @@ var is_old_game = false;
 
     if(is_new_game){
         player_name = prompt('請輸入您的名字', '');
+        if( typeof player_name !== 'string'){
+            player_name = '哥哥你好英俊';
+        }
+
         console.log(player_name);
         $.ajax({
             url: api_path + '?access_key=' + access_key,
@@ -87,17 +94,17 @@ var is_old_game = false;
 
     GAME.update_game_data = function(){
         // console.log(GAME);
-        var data = player_name + "||||" + JSON.stringify(rects);
+        var data = player_name + '||||' + JSON.stringify(rects);
         $.ajax({
             url: api_path + GAME.game_id + '?access_key=' + access_key,
-            method: "POST",
-            dataType: "json",
+            method: 'POST',
+            dataType: 'json',
             data: {data: data},
             success: function(res){
                 // GAME.game_id = res.id
             }
         });
-    }
+    };
 })(GAME);
 
 // function download_file(filename, imageData) {
