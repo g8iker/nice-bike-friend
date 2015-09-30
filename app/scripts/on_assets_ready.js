@@ -12,12 +12,14 @@
 
         stage.update();
 
-        player_name = prompt('請輸入您的名字', '');
-        if( typeof player_name !== 'string'){
-            player_name = '哥哥你好英俊';
+        if(is_new_game){
+            player_name = prompt('請輸入您的名字', '');
+            if( typeof player_name !== 'string'){
+                player_name = '哥哥你好英俊';
+            }
         }
 
-        console.log(player_name);
+        console.log('player_name', player_name);
 
         GAME.create_fb_button();
         GAME.create_share_button();
@@ -52,12 +54,12 @@
                     }
 
                     block.addEventListener('click', function(){
-                        if(is_old_game){
+                        if(!is_new_game){
                             return;
                         }
                         console.log('x/y', _x, _y);
 
-                        if(rects[x][y].checked){
+                        if(rects[_x][_y].checked){
                             stage.removeChild(circle);
                         }else{
                             stage.addChild(circle);
@@ -66,7 +68,7 @@
                         stage.update();
                         // is_clicked = !is_clicked;
 
-                        rects[x][y].checked = !rects[x][y].checked;
+                        rects[_x][_y].checked = !rects[_x][_y].checked;
                         GAME.update_game_data();
                         GAME.check_lines();
                         ga('send', 'event', 'clicks', 'click circle', '點圈圈');

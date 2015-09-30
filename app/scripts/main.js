@@ -16,7 +16,7 @@ var block_size = {
 };
 /*eslint-enable no-unused-vars*/
 
-
+var is_new_game = false;
 var player_name;
 // default rects for position
 var rects = [];
@@ -69,7 +69,6 @@ var rects = [];
     GAME.game_id = window.location.hash.substr(1);
     // console.log(GAME.game_id);
 
-    var is_new_game = false;
     if( GAME.game_id.length === 0){
         is_new_game = true;
     }
@@ -96,7 +95,7 @@ var rects = [];
                     player_name = data[0];
                 }
 
-                is_old_game = true;
+                is_new_game = false;
 
                 GAME.init();
 

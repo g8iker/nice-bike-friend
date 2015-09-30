@@ -2,7 +2,8 @@
     "rules": {
         "camelcase": 0,
         "no-loop-func": 0,
-        "no-alert": 0
+        "no-alert": 0,
+        "no-underscore-dangle": 0
     },
     "globals": {
         "GAME": true,
@@ -15,7 +16,7 @@
         "ga": true,
         "$": true,
         "loader": true,
-        "is_old_game": true,
+        "is_new_game": true,
         "w": true,
         "h": true,
         "var2": false
