@@ -14,7 +14,7 @@
 
         if(is_new_game){
             player_name = prompt('請輸入您的名字', '');
-            if( typeof player_name !== 'string'){
+            if( typeof player_name !== 'string' || player_name.length <= 0){
                 player_name = '哥哥你好英俊';
             }
         }
