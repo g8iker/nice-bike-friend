@@ -1,6 +1,7 @@
 'use strict';
 (function(GAME){
     GAME.handleComplete = function(){
+
         // remove loading icon
         $('.sk-fading-circle').remove();
         // var circle = new createjs.Bitmap(loader.getResult("circle"));
@@ -8,6 +9,15 @@
         var background = new createjs.Shape();
         background.graphics.beginBitmapFill(loader.getResult('background')).drawRect(0, 0, w, h);
         stage.addChild(background);
+
+        stage.update();
+
+        player_name = prompt('請輸入您的名字', '');
+        if( typeof player_name !== 'string'){
+            player_name = '哥哥你好英俊';
+        }
+
+        console.log(player_name);
 
         GAME.create_fb_button();
         GAME.create_share_button();

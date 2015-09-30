@@ -1,6 +1,5 @@
 'use strict';
 /*eslint no-loop-func: false*/
-/*eslint no-alert: 0*/
 /*eslint-env es6*/
 
 
@@ -76,12 +75,6 @@ var rects = [];
     }
 
     if(is_new_game){
-        player_name = prompt('請輸入您的名字', '');
-        if( typeof player_name !== 'string'){
-            player_name = '哥哥你好英俊';
-        }
-
-        console.log(player_name);
         $.ajax({
             url: api_path + '?access_key=' + access_key,
             success: function(res){

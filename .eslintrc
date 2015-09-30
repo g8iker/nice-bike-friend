@@ -1,7 +1,8 @@
 {
     "rules": {
         "camelcase": 0,
-        "no-loop-func": 0
+        "no-loop-func": 0,
+        "no-alert": 0
     },
     "globals": {
         "GAME": true,
