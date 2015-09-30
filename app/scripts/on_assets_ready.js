@@ -1,5 +1,13 @@
 'use strict';
 (function(GAME){
+    var CIRCLES = [
+        ['參加大會師', '會上網分享自己的心得給大家', '時常拍自己的車並上傳到臉書', '會提昇人身部品的等級', '會開始注意並學習各種騎乘技巧'],
+        ['車行師父修愛車的時候會尊在旁邊學習', '參加過小型的車友聚會', '透過朋友找推薦的車行', '會找車友一起出遊', '常常上論壇去看車友分享的技術文章'],
+        ['會揪車友一起喝咖啡', '會替自己的車取匿稱', '曾參加地緣車種相關的臉書社團', '會跟車友討論改裝品', '自己騎車覺得還好，被人載就覺得很恐怖'],
+        ['路上會仔細注意同車種', '上論壇找推薦的車行', '會定時洗愛車', '車上有低調卻很實用的改裝品', '會特地去知名的山路騎車'],
+        ['希望找到可以一起騎車的另一半', '會找車友揪團一起洗車', '想自己DIY修車', '會注意並討論車友的改裝', '會上臉書追教社團注意是否有被追焦']
+    ];
+
     GAME.handleComplete = function(){
 
         // remove loading icon
@@ -71,7 +79,8 @@
                         rects[_x][_y].checked = !rects[_x][_y].checked;
                         GAME.update_game_data();
                         GAME.check_lines();
-                        ga('send', 'event', 'clicks', 'click circle', '點圈圈');
+                        // ga('send', 'event', 'clicks', 'click circle', '點圈圈');
+                        ga('send', 'event', 'clicks', '點圈圈', CIRCLES[_x][_y]);
                     });
 
                     block.graphics.beginFill('#FFFFFF').drawRect(
